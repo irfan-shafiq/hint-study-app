@@ -14,7 +14,28 @@
     <p>
         <textarea id="detail" name="detail" rows="5" cols="33"></textarea>
     </p>
-    <button id="button" type="button">Submit</button>
-    <p id="response"></p>
+    <button id="submitButton" type="button">Submit</button>
+    <pre id="reply"></pre>
+    <script>
+        async function showProblem() {
+            const titleBox = document.getElementById("title");
+            const detailBox = document.getElementById("detail");
+
+            const response = await fetch("/problems", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ title: titleBox.value, detail: detailBox.value }),
+            });
+
+            const data = await response.json();
+            console.log(data);
+            const reply = document.getElementById("reply");
+            reply.textContent = data.id + ": " + data.title + "\n" + data.detail;
+        }
+
+        document.getElementById("submitButton").addEventListener("click", showProblem);
+    </script>
 </body>
 </html>

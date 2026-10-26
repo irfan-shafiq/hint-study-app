@@ -14,7 +14,7 @@ public class ProblemsController {
 
     @PostMapping("/problems")
     public Problem handle(@RequestBody ProblemRequest problem) {   
-        return new Problem(counter.incrementAndGet(), problem.title(), problem.text());
+        return new Problem(counter.incrementAndGet(), problem.title(), problem.detail());
     }
     
 }
